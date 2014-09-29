@@ -18,30 +18,37 @@
 %global ini_name  40-%{extname}.ini
 %endif
 
+%global real_name php-pecl-%{extname}
+%global php_base php55u
+
 Summary:        Replacement for the standard PHP serializer
-Name:           php-pecl-igbinary
+Name:           %{php_base}-pecl-%{extname}
 Version:        1.2.1
 Release:        1%{?dist}
 Source0:        http://pecl.php.net/get/%{extname}-%{version}.tgz
+Source1:        igbinary.ini
 License:        BSD
 Group:          System Environment/Libraries
-
 URL:            http://pecl.php.net/package/igbinary
-
-BuildRequires:  php-pear
-BuildRequires:  php-devel >= 5.2.0
+BuildRequires:  %{php_base}-pear
+BuildRequires:  %{php_base}-devel >= 5.2.0
 # php-pecl-apcu-devel provides php-pecl-apc-devel
-BuildRequires:  php-pecl-apc-devel >= 3.1.7
+BuildRequires:  %{php_base}-pecl-apcu-devel >= 3.1.7
 
 Requires(post): %{__pecl}
 Requires(postun): %{__pecl}
-Requires:       php(zend-abi) = %{php_zend_api}
-Requires:       php(api) = %{php_core_api}
+Requires:       %{php_base}(zend-abi) = %{php_zend_api}
+Requires:       %{php_base}(api) = %{php_core_api}
 
 Provides:       php-%{extname} = %{version}
 Provides:       php-%{extname}%{?_isa} = %{version}
 Provides:       php-pecl(%{extname}) = %{version}
 Provides:       php-pecl(%{extname})%{?_isa} = %{version}
+
+Provides:       %{php_base}-%{extname} = %{version}
+Provides:       %{php_base}-%{extname}%{?_isa} = %{version}
+Provides:       %{php_base}-pecl(%{extname}) = %{version}
+Provides:       %{php_base}-pecl(%{extname})%{?_isa} = %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
 # Filter shared private
@@ -62,8 +69,9 @@ based storages for serialized data.
 %package devel
 Summary:       Igbinary developer files (header)
 Group:         Development/Libraries
-Requires:      php-pecl-%{extname}%{?_isa} = %{version}-%{release}
-Requires:      php-devel%{?_isa}
+Requires:      %{php_base}-pecl-%{extname}%{?_isa} = %{version}-%{release}
+Requires:      %{php_base}-devel%{?_isa}
+
 
 %description devel
 These are the files needed to compile programs using Igbinary
@@ -87,21 +95,6 @@ cd ..
 cp -r NTS ZTS
 %endif
 
-cat <<EOF | tee %{ini_name}
-; Enable %{extname} extension module
-extension=%{extname}.so
-
-; Enable or disable compacting of duplicate strings
-; The default is On.
-;igbinary.compact_strings=On
-
-; Use igbinary as session serializer
-;session.serialize_handler=igbinary
-
-; Use igbinary as APC serializer
-;apc.serializer=igbinary
-EOF
-
 
 %build
 cd NTS
@@ -122,12 +115,12 @@ make install -C NTS INSTALL_ROOT=%{buildroot}
 
 install -D -m 644 package2.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
-install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
+install -D -m 644 %{SOURCE1} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install the ZTS stuff
 %if %{with_zts}
 make install -C ZTS INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
+install -D -m 644 %{SOURCE1} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Test & Documentation
@@ -209,6 +202,10 @@ fi
 
 
 %changelog
+* Mon Sep 29 2014 Carl George <carl.george@rackspace.com> - 1.2.1-1.ius
+- Port to IUS
+- Change ini file from here document to separate source
+
 * Fri Aug 29 2014 Remi Collet <remi@fedoraproject.org> - 1.2.1-1
 - Update to 1.2.1
 
