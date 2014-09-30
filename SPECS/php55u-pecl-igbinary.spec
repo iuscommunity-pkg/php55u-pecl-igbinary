@@ -24,7 +24,7 @@
 Summary:        Replacement for the standard PHP serializer
 Name:           %{php_base}-pecl-%{extname}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        1.ius%{?dist}
 Source0:        http://pecl.php.net/get/%{extname}-%{version}.tgz
 Source1:        igbinary.ini
 License:        BSD
