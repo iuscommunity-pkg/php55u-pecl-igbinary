@@ -12,12 +12,7 @@
 
 %global extname   igbinary
 %global with_zts  0%{?__ztsphp:1}
-%if "%{php_version}" < "5.6"
-%global ini_name  %{extname}.ini
-%else
 %global ini_name  40-%{extname}.ini
-%endif
-
 %global real_name php-pecl-%{extname}
 %global php_base php55u
 
