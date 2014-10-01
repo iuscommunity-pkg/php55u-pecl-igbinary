@@ -19,7 +19,7 @@
 Summary:        Replacement for the standard PHP serializer
 Name:           %{php_base}-pecl-%{extname}
 Version:        1.2.1
-Release:        1.ius%{?dist}
+Release:        2.ius%{?dist}
 Source0:        http://pecl.php.net/get/%{extname}-%{version}.tgz
 Source1:        igbinary.ini
 License:        BSD
@@ -197,6 +197,9 @@ fi
 
 
 %changelog
+* Wed Oct 01 2014 Carl George <carl.george@rackspace.com> - 1.2.1-2.ius
+- Add numerical prefix to extension configuration file
+
 * Mon Sep 29 2014 Carl George <carl.george@rackspace.com> - 1.2.1-1.ius
 - Port to IUS
 - Change ini file from here document to separate source
