@@ -16,7 +16,7 @@
 Summary:        Replacement for the standard PHP serializer
 Name:           %{php_base}-pecl-%{extname}
 Version:        1.2.1
-Release:        2.ius%{?dist}
+Release:        3.ius%{?dist}
 Source0:        http://pecl.php.net/get/%{extname}-%{version}.tgz
 Source1:        igbinary.ini
 License:        BSD
@@ -197,6 +197,11 @@ fi
 
 
 %changelog
+* Fri Oct 10 2014 Carl George <carl.george@rackspace.com> - 1.2.1-3.ius
+- Directly require the correct pear package, not /usr/bin/pecl
+- Conflict with stock package
+- Provides the stock package
+
 * Wed Oct 01 2014 Carl George <carl.george@rackspace.com> - 1.2.1-2.ius
 - Add numerical prefix to extension configuration file
 
