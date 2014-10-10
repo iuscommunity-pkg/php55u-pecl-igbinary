@@ -42,6 +42,9 @@ Provides:       %{php_base}-%{extname}%{?_isa} = %{version}
 Provides:       %{php_base}-pecl(%{extname}) = %{version}
 Provides:       %{php_base}-pecl(%{extname})%{?_isa} = %{version}
 
+Provides:       %{real_name} = %{version}
+Conflicts:      %{real_name} < %{version}
+
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
 # Filter shared private
 %{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
