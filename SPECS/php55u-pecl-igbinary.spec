@@ -30,8 +30,8 @@ BuildRequires:  %{php_base}-devel >= 5.2.0
 # php-pecl-apcu-devel provides php-pecl-apc-devel
 BuildRequires:  %{php_base}-pecl-apcu-devel >= 3.1.7
 
-Requires(post): %{__pecl}
-Requires(postun): %{__pecl}
+Requires(post): %{php_base}-pear
+Requires(postun): %{php_base}-pear
 Requires:       %{php_base}(zend-abi) = %{php_zend_api}
 Requires:       %{php_base}(api) = %{php_core_api}
 
