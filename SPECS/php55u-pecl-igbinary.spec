@@ -43,6 +43,7 @@ Provides:       %{php_base}-pecl(%{extname}) = %{version}
 Provides:       %{php_base}-pecl(%{extname})%{?_isa} = %{version}
 
 Provides:       %{real_name} = %{version}
+Provides:       %{real_name}%{?_isa} = %{version}
 Conflicts:      %{real_name} < %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
@@ -66,6 +67,11 @@ Summary:       Igbinary developer files (header)
 Group:         Development/Libraries
 Requires:      %{php_base}-pecl-%{extname}%{?_isa} = %{version}-%{release}
 Requires:      %{php_base}-devel%{?_isa}
+
+Provides:      php-%{extname}-devel = %{version}-%{release}
+Provides:      php-%{extname}-devel%{?_isa} = %{version}-%{release}
+Provides:      %{php_base}-%{extname}-devel = %{version}-%{release}
+Provides:      %{php_base}-%{extname}-devel%{?_isa} = %{version}-%{release}
 
 Provides:      %{real_name}-devel = %{version}
 Provides:      %{real_name}-devel%{?_isa} = %{version}
@@ -203,6 +209,7 @@ fi
 * Thu Feb 11 2016 Carl George <carl.george@rackspace.com> - 1.2.1-4.ius
 - Remove minimum requirement on %{php_base}-devel, it's implied in the name
 - Conflict/provide the stock name in the -devel subpackage
+- Clean up miscellaneous provides
 
 * Fri Oct 10 2014 Carl George <carl.george@rackspace.com> - 1.2.1-3.ius
 - Directly require the correct pear package, not /usr/bin/pecl
